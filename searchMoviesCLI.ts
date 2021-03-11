@@ -36,9 +36,11 @@ async function runChoice() {
             console.table(response.rows)
             response.rows.map((movie, index) => console.log(`[${index}] ${movie.name}`))
             const indexToSave = Number(question('Which would you like to save to favourites? Insert index number here: '))
-            const toSave = await client.query("INSERT INTO favourites VALUES $1 $2", [indexToSave, response.rows[indexToSave].name])
+            const toSave = await client.query("INSERT INTO favourite_movies (name) VALUES ($1)", [response.rows[indexToSave].name])
         }
         else if (searchString==='2') {
+            const response = await client.query("SELECT * FROM favourite_movies");
+            console.table(response.rows);
 
         }
         else {
